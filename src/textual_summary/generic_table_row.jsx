@@ -10,12 +10,19 @@ const renderMultivalue = function renderMultivalue(values, onClick) {
       <tbody>
         {
           values.map((item, i) => (
-            <tr onClick={e => onClick(item, e)} key={i} className={item.link ? '' : 'no-hover'} title={item.title}>
-              <td style={{ border: 0, margin: 0, padding: 0 }}>
-                <IconOrImage icon={item.icon} image={item.image} title={item.title} />
-                {filterValue(item.value)}
-              </td>
-            </tr>
+            item.link && item.external ?
+              <tr key={i}>
+                <td style={{ border: 0, margin: 0, padding: 0 }}>
+                  <IconOrImage icon={item.icon} image={item.image} title={item.title} />
+                  <a href={item.link} rel="noopener noreferrer" target="_blank">{filterValue(item.value)}</a>
+                </td>
+              </tr> :
+              <tr onClick={e => onClick(item, e)} key={i} className={item.link ? '' : 'no-hover'} title={item.title}>
+                <td style={{ border: 0, margin: 0, padding: 0 }}>
+                  <IconOrImage icon={item.icon} image={item.image} title={item.title} />
+                  {filterValue(item.value)}
+                </td>
+              </tr>
           ))
         }
       </tbody>
